@@ -132,6 +132,9 @@ start:
                 mov     ax, 0013h
                 int     10h
 
+                ; --- Asegurar que DF=0 para lodsb/stosb --------------
+                cld
+
                 ; --- Cargar paleta personalizada ---------------------
                 call    load_palette
 
@@ -272,14 +275,22 @@ delay_ticks:
                 push    bx
                 push    cx
                 push    dx
+                push    si
                 mov     ah, 0
                 int     1Ah                     ; CX:DX = numero de ticks
-                mov     bx, dx
-                add     bx, 2                   ; ~110 ms (9 fps aprox.)
+                mov     bx, dx                  ; BX = low word inicial
+                mov     si, cx                  ; SI = high word inicial
+                add     bx, 2                   ; sumar 2 ticks
+                adc     si, 0                   ; propagar carry
 @@w:            mov     ah, 0
                 int     1Ah
-                cmp     dx, bx
+                cmp     cx, si                  ; comparar high word
                 jb      @@w
+                ja      @@wdone
+                cmp     dx, bx                  ; high iguales, comparar low
+                jb      @@w
+@@wdone:
+                pop     si
                 pop     dx
                 pop     cx
                 pop     bx
