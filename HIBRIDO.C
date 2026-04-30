@@ -79,24 +79,29 @@ int main(void)
     /* Paso 1: Limpiar pantalla usando ensamblador en linea */
     limpiar_pantalla();
 
-    /* Paso 2: Posicionar cursor en fila 10, columna 20 */
-    posicionar_cursor(10, 20);
-
-    /* Paso 3: Mostrar mensajes usando C */
-    printf("==========================================\n");
-    printf("          PROGRAMA HIBRIDO               \n");
-    printf("      Turbo C + Ensamblador (ASM)        \n");
-    printf("==========================================\n");
-    printf("\n");
-    printf("   La pantalla fue limpiada usando        \n");
-    printf("   ensamblador en linea (INT 10h).        \n");
-    printf("\n");
-    printf("   Este mensaje se muestra con printf()   \n");
-    printf("   de la biblioteca estandar de C.        \n");
-    printf("\n");
-    printf("==========================================\n");
-    printf("   Presione cualquier tecla para salir...\n");
-    printf("==========================================\n");
+    /* Paso 2: Mostrar mensajes usando C con cursor posicionado via ASM */
+    posicionar_cursor(8, 19);
+    printf("==========================================");
+    posicionar_cursor(9, 19);
+    printf("          PROGRAMA HIBRIDO               ");
+    posicionar_cursor(10, 19);
+    printf("      Turbo C + Ensamblador (ASM)        ");
+    posicionar_cursor(11, 19);
+    printf("==========================================");
+    posicionar_cursor(13, 19);
+    printf("   La pantalla fue limpiada usando        ");
+    posicionar_cursor(14, 19);
+    printf("   ensamblador en linea (INT 10h).        ");
+    posicionar_cursor(16, 19);
+    printf("   Este mensaje se muestra con printf()   ");
+    posicionar_cursor(17, 19);
+    printf("   de la biblioteca estandar de C.        ");
+    posicionar_cursor(19, 19);
+    printf("==========================================");
+    posicionar_cursor(20, 19);
+    printf("   Presione cualquier tecla para salir...");
+    posicionar_cursor(21, 19);
+    printf("==========================================");
 
     /* Paso 4: Esperar tecla usando ensamblador (INT 16h) */
     asm {
